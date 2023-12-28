@@ -57,10 +57,7 @@ export class TestContext {
   readonly getEnv = getEnv;
   readonly getScreenshotAsBuffer = () => this.page.screenshot();
   readonly getPage = () => this.page;
-  readonly removeVideo = async () => {
-    const video = this.page.video();
-    if (video) await video.delete();
-  };
+  readonly removeVideo = async () => await this.page.video()?.delete();
   readonly getVideoPath = async () => (await this.page.video()?.path()) ?? Promise.resolve('');
   readonly close = async () => {
     await this.page.close();

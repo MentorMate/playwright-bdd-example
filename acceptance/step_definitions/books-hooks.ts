@@ -1,6 +1,6 @@
 import { DataTable, Given, Then, When } from '@cucumber/cucumber';
 import { IWorld } from '../driver/test-world';
-import { Page, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 
 //###  Global  ###
 
@@ -15,7 +15,9 @@ Given('I sign in as {word}', async function (this: IWorld, name: string) {
 
 Then('I see the {word} page', async function (this: IWorld, pageName: string) {
   const page = this.context.getPage();
-  validatePageName(page, pageName);
+  const url = page.url();
+  const currentPageName = url.substring(url.lastIndexOf('/') + 1);
+  expect(currentPageName).toBe(pageName);
 });
 
 //###  Common  ###
@@ -68,9 +70,3 @@ Then('I see book details', async function (this: IWorld, data: DataTable) {
     await expect(dialog.getByLabel(key)).toHaveText(value);
   }
 });
-
-function validatePageName(page: Page, pageName: string): void {
-  const url = page.url();
-  const currentPageName = url.substring(url.lastIndexOf('/') + 1);
-  expect(currentPageName).toBe(pageName);
-}

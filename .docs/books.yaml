@@ -1,0 +1,62 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: 'Books API'
+servers:
+  - url: '/'
+paths:
+  /api/v1/books:
+    get:
+      summary: Gets Books
+      responses:
+        '200':
+          description: 'Successful'
+          content:
+            'application/json; charset=utf-8':
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Book'
+              examples:
+                some-data:
+                  value:
+                    {
+                      data:
+                        [
+                          { id: 1, name: 'Test A', description: 'Description A' },
+                          { id: 2, name: 'Test B', description: 'Description B' },
+                          { id: 3, name: 'Test C', description: 'Description C' },
+                          { id: 4, name: 'Test D', description: 'Description D' },
+                          { id: 5, name: 'Test E', description: 'Description E' },
+                          { id: 6, name: 'Oath and Honor: A Memoir and a Warning', description: 'In the aftermath of the 2020 presidential election, Donald Trump...' },
+                          { id: 7, name: 'The Boys in the Boat', description: 'For readers of Unbroken, out of the depths of the Depression comes an irresistible story about beating the odds and finding hope in the most desperate of times' },
+                          { id: 10, name: 'Atomic Habits', description: 'No matter your goals, Atomic Habits offers a proven framework for improving--every day' }
+                        ]
+                    }
+                no-data:
+                  value:
+                    {
+                      data:
+                        [
+                        ]
+                    }
+                
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        description:
+          type: string
+        
+      required:
+        - id
+        - name
+        - description

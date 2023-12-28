@@ -6,7 +6,7 @@ export interface IWorld {
   context: TestContext;
 }
 
-export class TestWorld extends World<ITestParameters> {
+export class TestWorld extends World<ITestParameters> implements IWorld {
   #context: TestContext | null = null!;
 
   constructor(options: IWorldOptions) {
