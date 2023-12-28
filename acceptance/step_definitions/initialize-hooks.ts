@@ -17,14 +17,16 @@ Before(async function (this: TestWorld) {
 });
 
 After(async function (this: TestWorld, { result }: ITestCaseHookParameter) {
-  await this.context.close();
-
   if (result && result.status !== Status.PASSED) {
     const image = await this.context.getScreenshotAsBuffer();
     image && this.attach(image, 'image/png');
     const video = await this.context.getVideoAsEmbeddedHtml();
     video && this.attach(video, 'text/html');
-  } else {
+  }
+
+  await this.context.close();
+
+  if (result && result.status === Status.PASSED) {
     await this.context.removeVideo();
   }
 });

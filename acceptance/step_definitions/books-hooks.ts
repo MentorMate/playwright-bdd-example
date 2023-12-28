@@ -15,9 +15,7 @@ Given('I sign in as {word}', async function (this: IWorld, name: string) {
 
 Then('I see the {word} page', async function (this: IWorld, pageName: string) {
   const page = this.context.getPage();
-  const url = page.url();
-  const currentPageName = url.substring(url.lastIndexOf('/') + 1);
-  expect(currentPageName).toBe(pageName);
+  await page.waitForURL(new RegExp('/' + pageName + '$', 'i'));
 });
 
 //###  Common  ###
